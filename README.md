@@ -48,12 +48,15 @@
 - [3️⃣ 关于去广告](#3️⃣关于去广告)
 - [4️⃣ 规则目录](#4️⃣规则目录)
 - [5️⃣ 如何参与本项目](#5️⃣如何参与本项目)
-- [6️⃣ 来源与鸣谢](#6️⃣来源与鸣谢)
-- [7️⃣ 许可与说明](#7️⃣许可与说明)
+- [6️⃣ 项目状态](#6️⃣项目状态)
+- [7️⃣ 来源与鸣谢](#7️⃣来源与鸣谢)
+- [8️⃣ 许可与说明](#8️⃣许可与说明)
 -----
 
-# **中断性变更提醒**
-由于脚本数量的增多以及复杂性的提高,冗余文件影响到仓库内数据分析, 兹定于 **4月30日** 对仓库内部分 *脚本* 或 *分流文件* 进行包括文件名\文件后缀名\目录格式等重构, 届时,如果发生脚本无法找到的情况,请根据发布的 WiKi 等相关指引进行修改操作.
+# **🛠️ 仓库内容分支变更提醒**
+由于仓库内容过于久远，历史数据归档较为困难。
+已经对仓库分支结构进行切换并清理。
+如果你在使用过程中出现文件不存在等问题，请及时更新至对应内容。
 
 # **🉑 简要说明**
 
@@ -269,9 +272,10 @@ Repository
 4. 将规则推送 (`git push origin feature/AmazingFeature`)
 5. 提交合并申请 (Click `New Pull Request`)
 
+# **6️⃣项目状态**
+![Repo Status](https://repobeats.axiom.co/api/embed/1b46c1ec5df49b8bccd2de83611294a76cdf9da9.svg "Repobeats analytics image")
 
-
-# **6️⃣来源与鸣谢**
+# **7️⃣来源与鸣谢**
 - [@NobyDa](https://github.com/NobyDa/Scipts)
 - [@anti-AD V4](https://github.com/privacy-protection-tools/anti-AD)
 - [@ConnersHua](https://github.com/ConnersHua)
@@ -289,7 +293,7 @@ Repository
 - [@ddgksf2013](https://github.com/ddgksf2013)
 - [@cherish](https://github.com/cherish)
 
-# **7️⃣许可与说明**
+# **8️⃣许可与说明**
 
 - 本项目的所有文件，README 等资源基于一个 [MIT License](LICENSE) 发布，你可以拷贝、再发行本项目的内容, 但是你将必须：
   - 使用**完全相同**的条款和格式发布。
