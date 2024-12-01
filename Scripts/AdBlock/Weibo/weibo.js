@@ -1,4 +1,19 @@
-const version = 'V2.0.125';
+/***********************************************
+ > 应用名称：墨鱼自用微博&微博国际版净化脚本
+ > 脚本作者：@ddgksf2013
+ > 微信账号：墨鱼手记
+ > 更新时间：2024-10-30
+ > 通知频道：https://t.me/ddgksf2021
+ > 贡献投稿：https://t.me/ddgksf2013_bot
+ > 问题反馈：ddgksf2013@163.com
+ > 特别提醒：如需转载请注明出处，谢谢合作！
+ > 脚本声明：本脚本是在[https://github.com/zmqcherish]原创基础上优化自用
+ > 脚本声明：若有侵犯原作者权利，请邮箱联系删除
+ ***********************************************/
+
+
+const version = 'V2.0.133';
+
 
 const mainConfig = {
         isDebug: !1,
@@ -76,12 +91,12 @@ const mainConfig = {
         "/statuses/container_timeline": "removeMainTab",
         "wbapplua/wbpullad.lua": "removeLuaScreenAds",
         "interface/sdk/sdkad.php": "removePhpScreenAds",
-        "ct=feed&a=trends": "removeTopics",
+        "a=trends": "removeTopics",
         user_center: "modifiedUserCenter",
         "a=get_coopen_ads": "removeIntlOpenAds",
         "php?a=search_topic": "removeSearchTopic",
-        "v1/ad/realtime": "removeRealtimeAd",
-        "v1/ad/preload": "removeAdPreload",
+        "ad/realtime": "removeRealtimeAd",
+        "ad/preload": "removeAdPreload",
         "php?a=open_app": "removeAdBanner"
     };
 
@@ -107,11 +122,11 @@ function removeAdPreload(e) {
 }
 
 function removeIntlOpenAds(e) {
-    return e.data && 0 !== e.data.length && (e.data.ad_list = [], e.data.gdt_video_ad_ios = [], e.data.display_ad = 0, e.data.ad_ios_id = null, e.data.app_ad_ios_id = null, e.data.reserve_ad_ios_id = "", e.data.reserve_app_ad_ios_id = "", e.data.ad_duration = 604800, e.data.ad_cd_interval = 604800, e.data.pic_ad = []), e
+    return e.data && (e.data = {display_ad: 1}), e
 }
 
 function removeSearchTopic(e) {
-    return e.data && 0 !== e.data.length && (e.data = Object.values(e.data).filter(e => "searchtop" != e.type)), e
+    return e.data && 0 !== e.data.search_topic?.cards.length && (e.data.search_topic.cards = Object.values(e.data.search_topic.cards).filter(e => "searchtop" != e.type), e.data.trending_topic && delete e.data.trending_topic), e
 }
 
 function modifiedUserCenter(e) {
@@ -190,13 +205,13 @@ function removeSearchMain(e) {
 }
 
 function checkSearchWindow(e) {
-    return !!mainConfig.removeSearchWindow && "card" == e.category && (e.data?.itemid == "finder_window" || e.data?.itemid == 'discover_gallery' || e.data?.itemid == "more_frame" || e.data?.card_type == 208 || e.data?.card_type == 247 || e.data?.card_type == 217 || e.data?.card_type == 101 || e.data?.card_type == 19 || e.data?.mblog?.page_info?.actionlog?.source?.includes("ad"))
+    return !!mainConfig.removeSearchWindow && "card" == e.category && (e.data?.itemid == "finder_window" || e.data?.itemid == "discover_gallery" || e.data?.itemid == "more_frame" || e.data?.card_type == 208 || e.data?.card_type == 236 || e.data?.card_type == 247 || e.data?.card_type == 217 || e.data?.card_type == 101 || e.data?.card_type == 19 || e.data?.mblog?.page_info?.actionlog?.source?.includes("ad") || e.data?.pic?.includes("ads"))
 }
 
 function removeSearch(e) {
     if (!e.items) return e;
     let t = [];
-    for (let o of e.items) "feed" == o.category ? isAd(o.data) || (o.data?.page_info?.video_limit && delete o.data.page_info.video_limit, t.push(o)) : "group" == o.category ? (o.items = o.items.filter(e => e.data?.card_type == void 0 || e.data?.card_type === 17), o.items.length > 0 && t.push(o)) : checkSearchWindow(o) || t.push(o);
+    for (let o of e.items) "feed" == o.category ? isAd(o.data) || (o.data?.page_info?.video_limit && delete o.data.page_info.video_limit, t.push(o)) : "group" == o.category ? (o.items = o.items.filter(e => e.data?.card_type == void 0 || e.data?.card_type === 17 || e.data?.card_type === 10), o.items.length > 0 && t.push(o)) : checkSearchWindow(o) || t.push(o);
     return e.items = t, e.loadedInfo && (e.loadedInfo.searchBarContent = [], e.loadedInfo.headerBack && (e.loadedInfo.headerBack.channelStyleMap = {})), log("remove_search success"), e
 }
 
